@@ -1,0 +1,8 @@
+.settings/
+work/
+.project
+.classpath
+target/
+inject-tests/
+test-output
+*~
