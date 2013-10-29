@@ -148,7 +148,7 @@ public class TestLinkSite {
 				null, 
 				null, 
 				null,
-				null, 
+				false, 
 				null, 
 				(executionStatus.length == 0 ? null : executionStatus), // execute status
 				ExecutionType.AUTOMATED, 
@@ -219,6 +219,9 @@ public class TestLinkSite {
 				break;
 			case BLOCKED:
 				report.setBlocked(report.getBlocked()+1);
+				break;
+                        case TEST_ERROR:
+				report.setBlocked(report.getTestError()+1);
 				break;
 			default:
 				break;

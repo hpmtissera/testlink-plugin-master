@@ -104,6 +104,10 @@ public final class TestLinkHelper
 		{
 			executionStatusTextColored = "<span style='color: gray'>Not Run</span>";
 		}
+                if ( executionStatus == ExecutionStatus.TEST_ERROR )
+		{
+			executionStatusTextColored = "<span style='color: red'>TEST_ERROR</span>";
+		}
 		return executionStatusTextColored;
 	}
 	

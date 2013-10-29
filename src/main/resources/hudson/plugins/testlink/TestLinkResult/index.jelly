@@ -32,6 +32,10 @@
 	        <tr>
             <td>${%Not Run}: </td><td><b>${it.report.notRun}</b></td>
             </tr>
+            
+            	        <tr>
+            <td>${%TEST_ERROR}: </td><td><b>${it.report.testError}</b></td>
+            </tr>
 	        
 	        <tr>
 	        <td>${%Total}: </td><td><b>${it.report.testsTotal}</b></td>
