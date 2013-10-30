@@ -56,6 +56,27 @@
       <f:checkbox name="TestLinkBuilder.executionStatusBlocked" value="${instance.executionStatusBlocked}" 
       checked="${instance.executionStatusBlocked}" />
   </f:entry>
+  
+  <f:entry title="${%Not Available}" help="${rootURL}/../plugin/testlink/help-executionStatus.html">
+      <f:checkbox name="TestLinkBuilder.executionStatusNotAvailable" value="${instance.executionStatusNotAvailable}" 
+      checked="${instance.executionStatusNotAvailable}" />
+  </f:entry>
+  
+  <f:entry title="${%Unknown}" help="${rootURL}/../plugin/testlink/help-executionStatus.html">
+      <f:checkbox name="TestLinkBuilder.executionStatusUnknown" value="${instance.executionStatusUnknown}" 
+      checked="${instance.executionStatusUnknown}" />
+  </f:entry>
+  
+    <f:entry title="${%Test Error}" help="${rootURL}/../plugin/testlink/help-executionStatus.html">
+      <f:checkbox name="TestLinkBuilder.executionStatusTestError" value="${instance.executionStatusTestError}" 
+      checked="${instance.executionStatusTestError}" />
+  </f:entry>
+  
+    <f:entry title="${%All}" help="${rootURL}/../plugin/testlink/help-executionStatus.html">
+      <f:checkbox name="TestLinkBuilder.executionStatusAll" value="${instance.executionStatusAll}" 
+      checked="${instance.executionStatusAll}" />
+  </f:entry>
+  
   </f:section>
   </f:advanced>
       

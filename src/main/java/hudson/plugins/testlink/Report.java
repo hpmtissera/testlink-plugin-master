@@ -39,11 +39,14 @@ public class Report implements Serializable {
 
 	private static final long serialVersionUID = 3686192971774873173L;
 	
-	private int passed 	= 0;
-	private int failed 	= 0;
-	private int blocked	= 0;
-	private int notRun	= 0;
-        private int testError   = 0;
+	private int passed         = 0;
+	private int failed         = 0;
+	private int blocked        = 0;
+	private int notRun         = 0;
+        private int notAvailable   = 0;
+        private int unknown        = 0;
+        private int testError      = 0;
+        private int all            = 0;
 
 	private final int buildId;
 	private final String buildName;
@@ -64,7 +67,7 @@ public class Report implements Serializable {
 	 * @return the tests total
 	 */
 	public int getTestsTotal() {
-		return passed + failed + blocked + notRun + testError;
+		return passed + failed + blocked + notRun + notAvailable + unknown + testError + all;
 	}
 
 	/**
@@ -126,20 +129,37 @@ public class Report implements Serializable {
 	public void setNotRun(int notRun) {
 		this.notRun = notRun;
 	}
+        
+        public int getNotAvailable() {
+            return notAvailable;
+        }
 
-        /**
-	 * @return the testError
-	 */
+        public void setNotAvailable(int notAvailable) {
+            this.notAvailable = notAvailable;
+        }
+
+        public int getUnknown() {
+            return unknown;
+        }
+
+        public void setUnknown(int unknown) {
+            this.unknown = unknown;
+        }
+
         public int getTestError() {
             return testError;
         }
 
-        /**
-	 * @param testError
-	 *            the testError to set
-	 */
         public void setTestError(int testError) {
             this.testError = testError;
+        }
+
+        public int getAll() {
+            return all;
+        }
+
+        public void setAll(int all) {
+            this.all = all;
         }
 
 	/**
@@ -175,7 +195,10 @@ public class Report implements Serializable {
 	    this.failed = 0;
 	    this.notRun = 0;
 	    this.passed = 0;
+            this.notAvailable = 0;
+            this.unknown = 0;
             this.testError = 0;
+            this.all = 0;
 	    for (TestCaseWrapper tcw : getTestCases()) {
 	        switch (tcw.getExecutionStatus()) {
 	        case BLOCKED:
@@ -190,9 +213,18 @@ public class Report implements Serializable {
 	        case PASSED: 
 	            this.passed += 1;
 	            break;
+ 	        case NOT_AVAILABLE: 
+	            this.notAvailable += 1;
+	            break; 
+ 	        case UNKNOWN: 
+	            this.unknown += 1;
+	            break;   
  	        case TEST_ERROR: 
 	            this.testError += 1;
-	            break;                   
+	            break; 
+ 	        case ALL: 
+	            this.all += 1;
+	            break;                     
             default:
                 break;
 	        }

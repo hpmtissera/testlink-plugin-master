@@ -104,10 +104,22 @@ public final class TestLinkHelper
 		{
 			executionStatusTextColored = "<span style='color: gray'>Not Run</span>";
 		}
+                if ( executionStatus == ExecutionStatus.NOT_AVAILABLE )
+		{
+			executionStatusTextColored = "<span style='color: red'>Not Available</span>";
+		}
+                if ( executionStatus == ExecutionStatus.UNKNOWN )
+		{
+			executionStatusTextColored = "<span style='color: red'>Unknown</span>";
+		}
                 if ( executionStatus == ExecutionStatus.TEST_ERROR )
 		{
-			executionStatusTextColored = "<span style='color: red'>TEST_ERROR</span>";
+			executionStatusTextColored = "<span style='color: red'>Test Error</span>";
 		}
+                if ( executionStatus == ExecutionStatus.ALL )
+		{
+			executionStatusTextColored = "<span style='color: red'>All</span>";
+		}                
 		return executionStatusTextColored;
 	}
 	

@@ -86,7 +86,8 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
             String testPlanName, String buildName, String customFields,
             Boolean executionStatusNotRun, Boolean executionStatusPassed,
             Boolean executionStatusFailed, Boolean executionStatusBlocked, 
-            Boolean executionStatusTestError,
+            Boolean executionStatusNotAvailable, Boolean executionStatusUnknown,
+            Boolean executionStatusTestError,Boolean executionStatusAll,
             List<BuildStep> singleBuildSteps,
             List<BuildStep> beforeIteratingAllTestCasesBuildSteps,
             List<BuildStep> iterativeBuildSteps,
@@ -96,7 +97,8 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
         super(testLinkName, testProjectName, testPlanName, buildName,
                 customFields, executionStatusNotRun, executionStatusPassed,
                 executionStatusFailed, executionStatusBlocked, 
-                executionStatusTestError, singleBuildSteps,
+                executionStatusNotAvailable, executionStatusUnknown, 
+                executionStatusTestError, executionStatusAll, singleBuildSteps,
                 beforeIteratingAllTestCasesBuildSteps, iterativeBuildSteps,
                 afterIteratingAllTestCasesBuildSteps, transactional,
                 failedTestsMarkBuildAsFailure, failIfNoResults, false, resultSeekers);
@@ -110,7 +112,9 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
             String testPlanName, String buildName, String customFields,
             Boolean executionStatusNotRun, Boolean executionStatusPassed,
             Boolean executionStatusFailed, Boolean executionStatusBlocked,
-            Boolean executionStatusTestError,List<BuildStep> singleBuildSteps,
+            Boolean executionStatusNotAvailable, Boolean executionStatusUnknown,
+            Boolean executionStatusTestError,Boolean executionStatusAll,
+            List<BuildStep> singleBuildSteps,
             List<BuildStep> beforeIteratingAllTestCasesBuildSteps,
             List<BuildStep> iterativeBuildSteps,
             List<BuildStep> afterIteratingAllTestCasesBuildSteps,
@@ -119,7 +123,8 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
         super(testLinkName, testProjectName, testPlanName, buildName,
                 customFields, executionStatusNotRun, executionStatusPassed,
                 executionStatusFailed, executionStatusBlocked, 
-                executionStatusTestError, singleBuildSteps,
+                executionStatusNotAvailable, executionStatusUnknown, 
+                executionStatusTestError, executionStatusAll, singleBuildSteps,
                 beforeIteratingAllTestCasesBuildSteps, iterativeBuildSteps,
                 afterIteratingAllTestCasesBuildSteps, transactional,
                 failedTestsMarkBuildAsFailure, failIfNoResults, failOnNotRun, resultSeekers);
@@ -129,7 +134,9 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
 	public TestLinkBuilder(String testLinkName, String testProjectName,
 			String testPlanName, String platformName, String buildName, String customFields,
 			Boolean executionStatusNotRun, Boolean executionStatusPassed,
-			Boolean executionStatusFailed, Boolean executionStatusBlocked, Boolean executionStateTestError,
+			Boolean executionStatusFailed, Boolean executionStatusBlocked,
+                        Boolean executionStatusNotAvailable, Boolean executionStatusUnknown,
+                        Boolean executionStatusTestError,Boolean executionStatusAll,
 			List<BuildStep> singleBuildSteps,
 			List<BuildStep> beforeIteratingAllTestCasesBuildSteps,
 			List<BuildStep> iterativeBuildSteps,
@@ -138,7 +145,9 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
 			Boolean failIfNoResults, Boolean failOnNotRun, List<ResultSeeker> resultSeekers) {
 		super(testLinkName, testProjectName, testPlanName, platformName, buildName,
 				customFields, executionStatusNotRun, executionStatusPassed,
-				executionStatusFailed, executionStatusBlocked, executionStateTestError, singleBuildSteps,
+				executionStatusFailed, executionStatusBlocked, 
+                                executionStatusNotAvailable, executionStatusUnknown, 
+                                executionStatusTestError, executionStatusAll, singleBuildSteps,
 				beforeIteratingAllTestCasesBuildSteps, iterativeBuildSteps,
 				afterIteratingAllTestCasesBuildSteps, transactional,
 				failedTestsMarkBuildAsFailure, failIfNoResults, failOnNotRun, resultSeekers);
@@ -273,14 +282,38 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
 			    listener.getLogger().println("There are failed tests, setting the build result as UNSTABLE.");
 				build.setResult(Result.UNSTABLE);
 			}
-                } else if (report.getTestError() > 0) {
+                } else if (report.getNotAvailable() > 0) {
 			if (this.failedTestsMarkBuildAsFailure != null && this.failedTestsMarkBuildAsFailure) {
-			    listener.getLogger().println("There are tests in status TEST_ERROR, setting the build result as FAILURE.");
+			    listener.getLogger().println("There are tests in status Not Available, setting the build result as FAILURE.");
 				build.setResult(Result.FAILURE);
 			} else {
-			    listener.getLogger().println("There are tests in status TEST_ERROR, setting the build result as UNSTABLE.");
+			    listener.getLogger().println("There are tests in status Not Available, setting the build result as UNSTABLE.");
 				build.setResult(Result.UNSTABLE);
 			}
+                } else if (report.getUnknown() > 0) {
+			if (this.failedTestsMarkBuildAsFailure != null && this.failedTestsMarkBuildAsFailure) {
+			    listener.getLogger().println("There are tests in status Unknown, setting the build result as FAILURE.");
+				build.setResult(Result.FAILURE);
+			} else {
+			    listener.getLogger().println("There are tests in status Unknown, setting the build result as UNSTABLE.");
+				build.setResult(Result.UNSTABLE);
+			}
+                } else if (report.getTestError() > 0) {
+			if (this.failedTestsMarkBuildAsFailure != null && this.failedTestsMarkBuildAsFailure) {
+			    listener.getLogger().println("There are tests in status Test Error, setting the build result as FAILURE.");
+				build.setResult(Result.FAILURE);
+			} else {
+			    listener.getLogger().println("There are tests in status Test Error, setting the build result as UNSTABLE.");
+				build.setResult(Result.UNSTABLE);
+			}
+                } else if (report.getAll() > 0) {
+			if (this.failedTestsMarkBuildAsFailure != null && this.failedTestsMarkBuildAsFailure) {
+			    listener.getLogger().println("There are tests in status All, setting the build result as FAILURE.");
+				build.setResult(Result.FAILURE);
+			} else {
+			    listener.getLogger().println("There are tests in status All, setting the build result as UNSTABLE.");
+				build.setResult(Result.UNSTABLE);
+			}                        
 		} else if (this.getFailOnNotRun() != null && this.getFailOnNotRun() && report.getNotRun() > 0) {
 		    listener.getLogger().println("There are not run tests, setting the build result as FAILURE.");
 		    build.setResult(Result.FAILURE);

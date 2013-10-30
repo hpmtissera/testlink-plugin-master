@@ -148,10 +148,9 @@ public class TestLinkSite {
 				null, 
 				null, 
 				null,
-				false, 
+				null, 
 				null,
-                                null,
-//				(executionStatus.length == 0 ? null : executionStatus), // execute status
+				(executionStatus.length == 0 ? null : executionStatus), // execute status
 				ExecutionType.AUTOMATED, 
 				Boolean.TRUE,
 				TestCaseDetails.FULL);			

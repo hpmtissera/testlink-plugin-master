@@ -105,15 +105,21 @@ public class GraphHelper
               
               switch (row) {
                   case 0:
-                	  return String.valueOf(report.getBlocked()) + " Blocked";
+                          return String.valueOf(report.getAll()) + " All";               	  
                   case 1:
-                	  return String.valueOf(report.getFailed()) + " Failed";
+                          return String.valueOf(report.getBlocked()) + " Blocked";                	  
                   case 2:
-                	  return String.valueOf(report.getNotRun()) + " Not Run";
+                          return String.valueOf(report.getFailed()) + " Failed";                	  
                   case 3:
-                	  return String.valueOf(report.getPassed()) + " Passed";
+                          return String.valueOf(report.getNotAvailable()) + " Not available";                 
                   case 4:
-                	  return String.valueOf(report.getTestError()) + " TEST_ERROR";    
+                          return String.valueOf(report.getNotRun()) + " Not Run"; 
+                  case 5:
+                          return String.valueOf(report.getPassed()) + " Passed";                	  
+                  case 6:
+                	  return String.valueOf(report.getTestError()) + " Test Error";
+                  case 7:
+                          return String.valueOf(report.getUnknown()) + " Unknown";                	                        
                   default:
                      return "";
               }
@@ -122,11 +128,14 @@ public class GraphHelper
       };
 
       plot.setRenderer(ar);
-      ar.setSeriesPaint(0, ColorPalette.YELLOW); // Blocked
-      ar.setSeriesPaint(1, ColorPalette.RED); // Failures
-      ar.setSeriesPaint(2, ColorPalette.GREY); // Not Run
-      ar.setSeriesPaint(3, ColorPalette.BLUE); // Pass
-      ar.setSeriesPaint(4, ColorPalette.RED); // Pass
+      ar.setSeriesPaint(0, ColorPalette.RED); // All
+      ar.setSeriesPaint(1, ColorPalette.YELLOW); // Blocked
+      ar.setSeriesPaint(2, ColorPalette.RED); // Failures
+      ar.setSeriesPaint(3, ColorPalette.RED); // Not Available
+      ar.setSeriesPaint(4, ColorPalette.GREY); // Not Run
+      ar.setSeriesPaint(5, ColorPalette.BLUE); // Pass
+      ar.setSeriesPaint(6, ColorPalette.RED); // Test Error
+      ar.setSeriesPaint(7, ColorPalette.RED); // Unknown     
       
       // crop extra space around the graph
       plot.setInsets(new RectangleInsets(0, 0, 0, 5.0));

@@ -248,7 +248,10 @@ extends AbstractTestLinkProjectAction
 				dataset.add(report.getFailed(), "Failed", label);
 				dataset.add(report.getNotRun(), "Not Run", label);
 				dataset.add(report.getPassed(), "Passed", label);
-                                dataset.add(report.getTestError(), "TEST_ERROR", label);
+                                dataset.add(report.getTestError(), "Not Available", label);
+                                dataset.add(report.getTestError(), "Unknown", label);
+                                dataset.add(report.getTestError(), "Test Error", label);
+                                dataset.add(report.getTestError(), "All", label);
 			}
 		}
 	}

@@ -30,13 +30,25 @@
 	        </tr>
 	        
 	        <tr>
-            <td>${%Not Run}: </td><td><b>${it.report.notRun}</b></td>
-            </tr>
+                <td>${%Not Run}: </td><td><b>${it.report.notRun}</b></td>
+                </tr>
             
-            	        <tr>
-            <td>${%TEST_ERROR}: </td><td><b>${it.report.testError}</b></td>
-            </tr>
-	        
+            	<tr>
+                <td>${%Not Available}: </td><td><b>${it.report.notAvailable}</b></td>
+                </tr>
+                
+            	<tr>
+                <td>${%Unknown}: </td><td><b>${it.report.unknown}</b></td>
+                </tr>
+                
+            	<tr>
+                <td>${%Test Error}: </td><td><b>${it.report.testError}</b></td>
+                </tr>
+
+                <tr>
+                <td>${%All}: </td><td><b>${it.report.all}</b></td>
+                </tr>   
+                                                             	        
 	        <tr>
 	        <td>${%Total}: </td><td><b>${it.report.testsTotal}</b></td>
 	        </tr>

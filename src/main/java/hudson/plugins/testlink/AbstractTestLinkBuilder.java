@@ -103,10 +103,25 @@ public class AbstractTestLinkBuilder extends Builder {
 	protected final Boolean executionStatusBlocked;
         
         /**
-	 * Tests that are TEST_ERROR.
+	 * Tests that are Not Available.
+	 */
+	protected final Boolean executionStatusNotAvailable;
+        
+        /**
+	 * Tests that in status Unknown.
+	 */
+	protected final Boolean executionStatusUnknown;
+      
+        /**
+	 * Tests that in status Test_Error.
 	 */
 	protected final Boolean executionStatusTestError;
-	
+        
+        /**
+	 * Tests that in status All.
+	 */
+	protected final Boolean executionStatusAll;
+        
 	/**
 	 * List of build steps that are executed only once per job execution. 
 	 */
@@ -186,7 +201,10 @@ public class AbstractTestLinkBuilder extends Builder {
 	        Boolean executionStatusPassed,
 	        Boolean executionStatusFailed,
 	        Boolean executionStatusBlocked,
+                Boolean executionStatusNotAvailable,
+                Boolean executionStatusUnknown,
                 Boolean executionStatusTestError,
+                Boolean executionStatusAll,
 	        List<BuildStep> singleBuildSteps, 
 	        List<BuildStep> beforeIteratingAllTestCasesBuildSteps, 
 	        List<BuildStep> iterativeBuildSteps, 
@@ -207,7 +225,10 @@ public class AbstractTestLinkBuilder extends Builder {
         this.executionStatusPassed = executionStatusPassed;
         this.executionStatusFailed = executionStatusFailed;
         this.executionStatusBlocked = executionStatusBlocked;
+        this.executionStatusNotAvailable = executionStatusNotAvailable;
+        this.executionStatusUnknown = executionStatusUnknown;
         this.executionStatusTestError = executionStatusTestError;
+        this.executionStatusAll = executionStatusAll;
         this.singleBuildSteps = singleBuildSteps;
         this.beforeIteratingAllTestCasesBuildSteps = beforeIteratingAllTestCasesBuildSteps;
         this.iterativeBuildSteps = iterativeBuildSteps;
@@ -232,7 +253,10 @@ public class AbstractTestLinkBuilder extends Builder {
         Boolean executionStatusPassed,
         Boolean executionStatusFailed,
         Boolean executionStatusBlocked,
+        Boolean executionStatusNotAvailable,
+        Boolean executionStatusUnknown,
         Boolean executionStatusTestError,
+        Boolean executionStatusAll,        
         List<BuildStep> singleBuildSteps, 
         List<BuildStep> beforeIteratingAllTestCasesBuildSteps, 
         List<BuildStep> iterativeBuildSteps, 
@@ -254,7 +278,10 @@ public class AbstractTestLinkBuilder extends Builder {
         this.executionStatusPassed = executionStatusPassed;
         this.executionStatusFailed = executionStatusFailed;
         this.executionStatusBlocked = executionStatusBlocked;
+        this.executionStatusNotAvailable = executionStatusNotAvailable;
+        this.executionStatusUnknown = executionStatusUnknown;
         this.executionStatusTestError = executionStatusTestError;
+        this.executionStatusAll = executionStatusAll;
         this.singleBuildSteps = singleBuildSteps;
         this.beforeIteratingAllTestCasesBuildSteps = beforeIteratingAllTestCasesBuildSteps;
         this.iterativeBuildSteps = iterativeBuildSteps;
@@ -296,7 +323,10 @@ public class AbstractTestLinkBuilder extends Builder {
 		Boolean executionStatusPassed,
 		Boolean executionStatusFailed,
 		Boolean executionStatusBlocked,
+                Boolean executionStatusNotAvailable,
+                Boolean executionStatusUnknown,
                 Boolean executionStatusTestError,
+                Boolean executionStatusAll,
 		List<BuildStep> singleBuildSteps, 
 		List<BuildStep> beforeIteratingAllTestCasesBuildSteps, 
 		List<BuildStep> iterativeBuildSteps, 
@@ -318,7 +348,10 @@ public class AbstractTestLinkBuilder extends Builder {
 		this.executionStatusPassed = executionStatusPassed;
 		this.executionStatusFailed = executionStatusFailed;
 		this.executionStatusBlocked = executionStatusBlocked;
+                this.executionStatusNotAvailable = executionStatusNotAvailable;
+                this.executionStatusUnknown = executionStatusUnknown;
                 this.executionStatusTestError = executionStatusTestError;
+                this.executionStatusAll = executionStatusAll;
 		this.singleBuildSteps = singleBuildSteps;
 		this.beforeIteratingAllTestCasesBuildSteps = beforeIteratingAllTestCasesBuildSteps;
 		this.iterativeBuildSteps = iterativeBuildSteps;
@@ -382,11 +415,23 @@ public class AbstractTestLinkBuilder extends Builder {
 	public Boolean getExecutionStatusBlocked() {
 		return executionStatusBlocked;
 	}
-        
-	public Boolean getExecutionStatusTestError() {
-		return executionStatusTestError;
-	}
-        
+
+        public Boolean getExecutionStatusNotAvailable() {
+            return executionStatusNotAvailable;
+        }
+
+        public Boolean getExecutionStatusUnknown() {
+            return executionStatusUnknown;
+        }
+
+        public Boolean getExecutionStatusTestError() {
+            return executionStatusTestError;
+        }
+
+        public Boolean getExecutionStatusAll() {
+            return executionStatusAll;
+        }        
+       
 	public List<BuildStep> getSingleBuildSteps() {
 		return this.singleBuildSteps;
 	}
@@ -499,24 +544,36 @@ public class AbstractTestLinkBuilder extends Builder {
 	 */
 	Set<ExecutionStatus> getExecutionStatuses() {
 		Set<ExecutionStatus> statuses = new HashSet<ExecutionStatus>();
-//		if (Boolean.TRUE.equals(executionStatusNotRun)) {
-//			statuses.add(ExecutionStatus.NOT_RUN);
-//		}
-//		if (Boolean.TRUE.equals(executionStatusPassed)) {
-//			statuses.add(ExecutionStatus.PASSED);
-//		}
-//		if (Boolean.TRUE.equals(executionStatusFailed)) {
-//			statuses.add(ExecutionStatus.FAILED);
-//		}
-//		if (Boolean.TRUE.equals(executionStatusBlocked)) {
-//			statuses.add(ExecutionStatus.BLOCKED);
-//		}
-		if (statuses.size() == 0) {
+		if (Boolean.TRUE.equals(executionStatusNotRun)) {
 			statuses.add(ExecutionStatus.NOT_RUN);
+		}
+		if (Boolean.TRUE.equals(executionStatusPassed)) {
 			statuses.add(ExecutionStatus.PASSED);
+		}
+		if (Boolean.TRUE.equals(executionStatusFailed)) {
 			statuses.add(ExecutionStatus.FAILED);
+		}
+		if (Boolean.TRUE.equals(executionStatusBlocked)) {
 			statuses.add(ExecutionStatus.BLOCKED);
-                        statuses.add(ExecutionStatus.TEST_ERROR);
+		}
+                if (Boolean.TRUE.equals(executionStatusNotAvailable)) {
+			statuses.add(ExecutionStatus.NOT_AVAILABLE);
+		}
+                if (Boolean.TRUE.equals(executionStatusUnknown)) {
+			statuses.add(ExecutionStatus.UNKNOWN);
+		}
+                if (Boolean.TRUE.equals(executionStatusTestError)) {
+			statuses.add(ExecutionStatus.TEST_ERROR);
+		}
+                if (Boolean.TRUE.equals(executionStatusAll)) {
+			statuses.add(ExecutionStatus.ALL);
+		}                
+		if (statuses.size() == 0) {
+//			statuses.add(ExecutionStatus.NOT_RUN);
+//			statuses.add(ExecutionStatus.PASSED);
+//			statuses.add(ExecutionStatus.FAILED);
+//			statuses.add(ExecutionStatus.BLOCKED);
+//                      statuses.add(ExecutionStatus.TEST_ERROR);
 		}
 		return statuses;
 	}
