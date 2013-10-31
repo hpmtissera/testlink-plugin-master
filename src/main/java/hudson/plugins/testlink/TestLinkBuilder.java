@@ -206,7 +206,7 @@ public class TestLinkBuilder extends AbstractTestLinkBuilder {
 			final String[] customFieldsNames = this.createArrayOfCustomFieldsNames(build.getBuildVariableResolver(), build.getEnvironment(listener));
 			final Set<ExecutionStatus> executionStatuses = this.getExecutionStatuses();
 			// Array of automated test cases
-			TestCase[] testCases = testLinkSite.getAutomatedTestCases(customFieldsNames, executionStatuses);
+			TestCase[] testCases = testLinkSite.getAutomatedTestCasesWithLatestStatus(customFieldsNames, executionStatuses);
 
 			// Transforms test cases into test case wrappers
 			automatedTestCases = this.transform(testCases);
