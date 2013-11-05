@@ -196,8 +196,9 @@ public class TestLinkSite {
 	    }
 		final TestCase[] testCases = this.api.getTestCasesForTestPlanWithLatestStatus(
 				getTestPlan().getId(), 
-				null, 
-				null, 
+				null,
+                                null,
+				getBuild().getName(), 
 				null, 
 				null,
 				null, 
